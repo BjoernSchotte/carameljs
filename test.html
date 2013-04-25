@@ -1,0 +1,52 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://raw.github.com/placemarker/jQuery-MD5/master/jquery.md5.js"></script>
+  <script src="caramel.js"></script>
+  <title>carameljs Test</title>
+</head>
+<body bgcolor="#ffffff">
+<h1>Hi!</h1>
+<script type="text/javascript">
+    var crmConfig = {
+        baseURL: "http://crm.wb.mayflower.de/",
+        crmUsername: "bschotte",
+        crmPassword: "hlma23o68"
+    }
+
+    candy = new caramel();
+    candy.init(crmConfig);
+    candy.showConfig();
+    // candy.logout();
+    candy.login({username: crmConfig.crmUsername, password: crmConfig.crmPassword, success: foobar});
+
+    function foobar() {
+        candy.getUserId({success: foo2});
+    }
+
+    function foo2() {
+        candy.Account().findBy("name","10gen").call(foundAccount);
+        candy.Lead().findBy("account_name","Deutsche Bank").call(foundLead);
+        // candy.getEntryList(opt);
+    }
+
+    function foundAccount(result) {
+        console.log("foundAccount: " + JSON.stringify(result));
+    }
+
+    function foundLead(result) {
+        console.log("foundLead: " + JSON.stringify(result));
+    }
+
+    function myLogout() {
+        candy.logout({success:yesWeCan});
+    }
+
+    function yesWeCan() {
+        console.log("Userland we are logged out!");
+    }
+    //candy.logout();
+</script>
+<a href="#" onclick="javascript:myLogout();">Logout</a>
+</body>
+</html>
